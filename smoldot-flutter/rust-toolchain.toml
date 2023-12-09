@@ -1,0 +1,7 @@
+[toolchain]
+channel = "stable"
+profile = "default"
+targets = [
+  "aarch64-linux-android",
+  "aarch64-apple-ios",
+]
