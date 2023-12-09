@@ -64,7 +64,7 @@ class HomePage extends StatelessWidget {
                           },
                         ),
                         initiallyExpanded: true,
-                        children: e.parachains
+                        children: (e is RelayChain ? e.parachains : [])
                             .map((e) => ListTile(
                                   leading: e.logo,
                                   title: Text(e.name,

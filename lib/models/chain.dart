@@ -8,7 +8,7 @@ import '../ffi.dart';
 
 class Chains extends ChangeNotifier {
   late Chain selected;
-  final List<RelayChain> chains;
+  final List<Chain> chains;
 
   Chains(this.chains) {
     // Initialise logging
@@ -200,6 +200,12 @@ abstract class Chain extends ChangeNotifier {
       _streamSubscription = null;
     }
     super.dispose();
+  }
+}
+
+class SoloChain extends Chain {
+  SoloChain(String name, String chainSpec, Widget logo)
+      : super(name, chainSpec, logo) {
   }
 }
 
