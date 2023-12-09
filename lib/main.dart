@@ -6,6 +6,8 @@ import 'package:trappist_extra/models/chain.dart';
 
 void main() {
   // Define the available chains
+  var vara = Chain("Vara", chainSpec("vara.json"),
+          logo("vara.svg", "Vara Logo"));
   var polkadot = RelayChain("Polkadot", chainSpec("polkadot.json"),
           logo("polkadot.svg", "Polkadot Logo"))
       // Statemint
@@ -33,7 +35,7 @@ void main() {
   //     logo("bridgehub-kusama.svg", "BridgeHub Logo"));
 
   runApp(ChangeNotifierProvider(
-      create: (context) => Chains([polkadot, kusama, rococo]),
+      create: (context) => Chains([vara, polkadot, kusama, rococo]),
       child: const MyApp()));
 }
 
