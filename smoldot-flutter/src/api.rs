@@ -233,6 +233,16 @@ mod tests {
     // IMPORTANT: tests must be executed one by one.
 
     #[test]
+    fn syncs_vara_network() {
+        init_light_client().unwrap();
+
+        let vara_network = String::from("Vara");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/vara.json").unwrap();
+        start_chain_sync(vara_network.clone(), chain_spec, "".into(), None).unwrap();
+        stop_chain_sync(vara_network).unwrap();
+    }
+
+    #[test]
     fn syncs_polkadot_relay_chain() {
         init_light_client().unwrap();
 
