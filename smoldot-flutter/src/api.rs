@@ -1,6 +1,6 @@
 use anyhow::{anyhow, Context};
 use core::num::NonZeroU32;
-use flutter_rust_bridge::{StreamSink, rust2dart::IntoIntoDart};
+use flutter_rust_bridge::StreamSink;
 use lazy_static::lazy_static;
 use log::debug;
 use parking_lot::RwLock;
@@ -23,12 +23,6 @@ pub struct LogEntry {
     pub level: i32,
     pub tag: String,
     pub msg: String,
-}
-
-impl IntoIntoDart<LogEntry> for LogEntry {
-    fn into_into_dart(self) -> LogEntry {
-        self
-    }
 }
 
 pub fn init_logger(log_stream_sink: StreamSink<LogEntry>) -> anyhow::Result<()> {
