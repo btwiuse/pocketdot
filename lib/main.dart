@@ -6,15 +6,17 @@ import 'package:trappist_extra/models/chain.dart';
 
 void main() {
   // Define the available chains
-  var vara = SoloChain("Vara", chainSpec("vara.json"),
+/*
+  var vara = SoloChain("Vara Network", chainSpec("vara.json"),
           logo("vara.svg", "Vara Logo"));
-  var shibuya = SoloChain("Shibuya", chainSpec("shibuya.json"),
+  var shibuya = SoloChain("Shibuya Testnet", chainSpec("shibuya.json"),
           logo("shiden.png", "Shibuya Logo"));
+*/
   var polkadot = RelayChain("Polkadot", chainSpec("polkadot.json"),
           logo("polkadot.svg", "Polkadot Logo"))
       // Astar
       .addParachain("Astar", chainSpec("astar.json"),
-          logo("astar.png", "Astar Logo"))
+          logo("polkadot.svg", "Astar Logo"))
       // Statemint
       .addParachain("Statemint", chainSpec("statemint.json"),
           logo("statemint.svg", "Statemint Logo"))
@@ -25,7 +27,7 @@ void main() {
           "Kusama", chainSpec("kusama.json"), logo("kusama.svg", "Kusama Logo"))
       // Shiden
       .addParachain("Shiden", chainSpec("shiden.json"),
-          logo("shiden.png", "Shiden Logo"))
+          logo("kusama.svg", "Shiden Logo"))
       // Statemine
       .addParachain("Statemine", chainSpec("statemine.json"),
           logo("statemint.svg", "Statemine Logo"))
@@ -43,7 +45,8 @@ void main() {
   //     logo("bridgehub-kusama.svg", "BridgeHub Logo"));
 
   runApp(ChangeNotifierProvider(
-      create: (context) => Chains([vara, shibuya, polkadot, kusama, rococo]),
+      // create: (context) => Chains([vara, shibuya, polkadot, kusama, rococo]),
+      create: (context) => Chains([polkadot, kusama, rococo]),
       child: const MyApp()));
 }
 
