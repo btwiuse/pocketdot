@@ -8,11 +8,17 @@ void main() {
   // Define the available chains
   var vara = SoloChain("Vara Network", chainSpec("vara.json"),
           logo("vara.svg", "Vara Logo"));
-  var shibuya = SoloChain("Shibuya Testnet", chainSpec("shibuya.json"),
-          logo("shiden.png", "Shibuya Logo"));
+
+  // Shibuya is not a solochain.
+  // It is Parachain of the tokio Relay chain
+  // var shibuya = SoloChain("Shibuya Testnet", chainSpec("shibuya.json"),
+  //        logo("shiden.png", "Shibuya Logo"));
 
   var polkadot = RelayChain("Polkadot", chainSpec("polkadot.json"),
           logo("polkadot.svg", "Polkadot Logo"))
+      // Acala
+      .addParachain("Acala", chainSpec("polkadot-acala.json"),
+          logo("polkadot.svg", "Acala Logo"))
       // Astar
       .addParachain("Astar", chainSpec("astar.json"),
           logo("polkadot.svg", "Astar Logo"))

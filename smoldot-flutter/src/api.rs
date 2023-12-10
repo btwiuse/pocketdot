@@ -301,6 +301,28 @@ mod tests {
     }
 
     #[test]
+    fn syncs_polkadot_acala_parachain() {
+        init_light_client().unwrap();
+
+        let relay_chain = String::from("Polkadot");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/polkadot.json").unwrap();
+        start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
+
+        let parachain = String::from("Acala");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/polkadot-acala.json").unwrap();
+        start_chain_sync(
+            parachain.clone(),
+            chain_spec,
+            "".into(),
+            Some(relay_chain.clone()),
+        )
+        .unwrap();
+
+        stop_chain_sync(relay_chain).unwrap();
+        stop_chain_sync(parachain).unwrap();
+    }
+
+    #[test]
     fn syncs_polkadot_astar_parachain() {
         init_light_client().unwrap();
 

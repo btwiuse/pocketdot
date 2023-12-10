@@ -16,6 +16,7 @@ test:
 	# cargo test syncs_polkadot_statemint_parachain
 	cargo test syncs_polkadot_asset_hub_parachain
 	cargo test syncs_polkadot_bridge_hub_parachain
+	cargo test syncs_polkadot_acala_parachain
 	cargo test syncs_polkadot_astar_parachain
 
 	cargo test syncs_westend_asset_hub_parachain
