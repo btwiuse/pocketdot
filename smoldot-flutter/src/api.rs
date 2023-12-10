@@ -227,13 +227,23 @@ mod tests {
     // IMPORTANT: tests must be executed one by one.
 
     #[test]
-    fn syncs_vara_network() {
+    fn syncs_vara_solochain() {
         init_light_client().unwrap();
 
-        let vara_network = String::from("Vara");
+        let vara = String::from("Vara");
         let chain_spec = fs::read_to_string("../assets/chainspecs/vara.json").unwrap();
-        start_chain_sync(vara_network.clone(), chain_spec, "".into(), None).unwrap();
-        stop_chain_sync(vara_network).unwrap();
+        start_chain_sync(vara.clone(), chain_spec, "".into(), None).unwrap();
+        stop_chain_sync(vara).unwrap();
+    }
+
+    #[test]
+    fn syncs_shibuya_solochain() {
+        init_light_client().unwrap();
+
+        let vara = String::from("Shibuya Testnet");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/shibuya.json").unwrap();
+        start_chain_sync(vara.clone(), chain_spec, "".into(), None).unwrap();
+        stop_chain_sync(vara).unwrap();
     }
 
     #[test]
@@ -247,7 +257,73 @@ mod tests {
     }
 
     #[test]
-    fn syncs_statemint_parachain() {
+    fn syncs_polkadot_asset_hub_parachain() {
+        init_light_client().unwrap();
+
+        let relay_chain = String::from("Polkadot");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/polkadot.json").unwrap();
+        start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
+
+        let parachain = String::from("Polkadot Asset Hub");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/asset-hub-polkadot.json").unwrap();
+        start_chain_sync(
+            parachain.clone(),
+            chain_spec,
+            "".into(),
+            Some(relay_chain.clone()),
+        )
+        .unwrap();
+
+        stop_chain_sync(relay_chain).unwrap();
+        stop_chain_sync(parachain).unwrap();
+    }
+
+    #[test]
+    fn syncs_polkadot_bridge_hub_parachain() {
+        init_light_client().unwrap();
+
+        let relay_chain = String::from("Polkadot");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/polkadot.json").unwrap();
+        start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
+
+        let parachain = String::from("Polkadot Bridge Hub");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/bridge-hub-polkadot.json").unwrap();
+        start_chain_sync(
+            parachain.clone(),
+            chain_spec,
+            "".into(),
+            Some(relay_chain.clone()),
+        )
+        .unwrap();
+
+        stop_chain_sync(relay_chain).unwrap();
+        stop_chain_sync(parachain).unwrap();
+    }
+
+    #[test]
+    fn syncs_polkadot_astar_parachain() {
+        init_light_client().unwrap();
+
+        let relay_chain = String::from("Polkadot");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/polkadot.json").unwrap();
+        start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
+
+        let parachain = String::from("Astar");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/astar.json").unwrap();
+        start_chain_sync(
+            parachain.clone(),
+            chain_spec,
+            "".into(),
+            Some(relay_chain.clone()),
+        )
+        .unwrap();
+
+        stop_chain_sync(relay_chain).unwrap();
+        stop_chain_sync(parachain).unwrap();
+    }
+
+    #[test]
+    fn syncs_polkadot_statemint_parachain() {
         init_light_client().unwrap();
 
         let relay_chain = String::from("Polkadot");
@@ -279,7 +355,7 @@ mod tests {
     }
 
     #[test]
-    fn syncs_asset_hub_kusama_parachain() {
+    fn syncs_kusama_asset_hub_parachain() {
         init_light_client().unwrap();
 
         let relay_chain = String::from("Kusama");
@@ -301,7 +377,73 @@ mod tests {
     }
 
     #[test]
-    fn syncs_statemine_parachain() {
+    fn syncs_kusama_bridge_hub_parachain() {
+        init_light_client().unwrap();
+
+        let relay_chain = String::from("Kusama");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/kusama.json").unwrap();
+        start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
+
+        let parachain = String::from("Kusama Bridge Hub");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/bridge-hub-kusama.json").unwrap();
+        start_chain_sync(
+            parachain.clone(),
+            chain_spec,
+            "".into(),
+            Some(relay_chain.clone()),
+        )
+        .unwrap();
+
+        stop_chain_sync(relay_chain).unwrap();
+        stop_chain_sync(parachain).unwrap();
+    }
+
+    #[test]
+    fn syncs_kusama_karura_parachain() {
+        init_light_client().unwrap();
+
+        let relay_chain = String::from("Kusama");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/kusama.json").unwrap();
+        start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
+
+        let parachain = String::from("Karura");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/kusama-karura.json").unwrap();
+        start_chain_sync(
+            parachain.clone(),
+            chain_spec,
+            "".into(),
+            Some(relay_chain.clone()),
+        )
+        .unwrap();
+
+        stop_chain_sync(relay_chain).unwrap();
+        stop_chain_sync(parachain).unwrap();
+    }
+
+    #[test]
+    fn syncs_kusama_shiden_parachain() {
+        init_light_client().unwrap();
+
+        let relay_chain = String::from("Kusama");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/kusama.json").unwrap();
+        start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
+
+        let parachain = String::from("Siden");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/shiden.json").unwrap();
+        start_chain_sync(
+            parachain.clone(),
+            chain_spec,
+            "".into(),
+            Some(relay_chain.clone()),
+        )
+        .unwrap();
+
+        stop_chain_sync(relay_chain).unwrap();
+        stop_chain_sync(parachain).unwrap();
+    }
+
+    #[test]
+    fn syncs_kusama_statemine_parachain() {
         init_light_client().unwrap();
 
         let relay_chain = String::from("Kusama");
@@ -309,7 +451,61 @@ mod tests {
         start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
 
         let parachain = String::from("Statemine");
-        let chain_spec = fs::read_to_string("../assets/chainspecs/statemine.json").unwrap();
+        let chain_spec = fs::read_to_string("../assets/chainspecs/kusama-statemine.json").unwrap();
+        start_chain_sync(
+            parachain.clone(),
+            chain_spec,
+            "".into(),
+            Some(relay_chain.clone()),
+        )
+        .unwrap();
+
+        stop_chain_sync(relay_chain).unwrap();
+        stop_chain_sync(parachain).unwrap();
+    }
+
+    #[test]
+    fn syncs_westend_relay_chain() {
+        init_light_client().unwrap();
+
+        let relay_chain = String::from("Westend");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/westend.json").unwrap();
+        start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
+        stop_chain_sync(relay_chain).unwrap();
+    }
+
+    #[test]
+    fn syncs_westend_asset_hub_parachain() {
+        init_light_client().unwrap();
+
+        let relay_chain = String::from("westend");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/westend.json").unwrap();
+        start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
+
+        let parachain = String::from("Westend Asset Hub");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/asset-hub-westend.json").unwrap();
+        start_chain_sync(
+            parachain.clone(),
+            chain_spec,
+            "".into(),
+            Some(relay_chain.clone()),
+        )
+        .unwrap();
+
+        stop_chain_sync(relay_chain).unwrap();
+        stop_chain_sync(parachain).unwrap();
+    }
+
+    #[test]
+    fn syncs_westend_bridge_hub_parachain() {
+        init_light_client().unwrap();
+
+        let relay_chain = String::from("westend");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/westend.json").unwrap();
+        start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
+
+        let parachain = String::from("Westend Bridge Hub");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/bridge-hub-westend.json").unwrap();
         start_chain_sync(
             parachain.clone(),
             chain_spec,
@@ -330,6 +526,50 @@ mod tests {
         let chain_spec = fs::read_to_string("../assets/chainspecs/rococo.json").unwrap();
         start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
         stop_chain_sync(relay_chain).unwrap();
+    }
+
+    #[test]
+    fn syncs_rococo_asset_hub_parachain() {
+        init_light_client().unwrap();
+
+        let relay_chain = String::from("rococo");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/rococo.json").unwrap();
+        start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
+
+        let parachain = String::from("Rococo Asset Hub");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/asset-hub-rococo.json").unwrap();
+        start_chain_sync(
+            parachain.clone(),
+            chain_spec,
+            "".into(),
+            Some(relay_chain.clone()),
+        )
+        .unwrap();
+
+        stop_chain_sync(relay_chain).unwrap();
+        stop_chain_sync(parachain).unwrap();
+    }
+
+    #[test]
+    fn syncs_rococo_bridge_hub_parachain() {
+        init_light_client().unwrap();
+
+        let relay_chain = String::from("rococo");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/rococo.json").unwrap();
+        start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
+
+        let parachain = String::from("Rococo Bridge Hub");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/bridge-hub-rococo.json").unwrap();
+        start_chain_sync(
+            parachain.clone(),
+            chain_spec,
+            "".into(),
+            Some(relay_chain.clone()),
+        )
+        .unwrap();
+
+        stop_chain_sync(relay_chain).unwrap();
+        stop_chain_sync(parachain).unwrap();
     }
 
     #[test]

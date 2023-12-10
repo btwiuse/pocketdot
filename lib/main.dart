@@ -6,56 +6,57 @@ import 'package:trappist_extra/models/chain.dart';
 
 void main() {
   // Define the available chains
-/*
   var vara = SoloChain("Vara Network", chainSpec("vara.json"),
           logo("vara.svg", "Vara Logo"));
   var shibuya = SoloChain("Shibuya Testnet", chainSpec("shibuya.json"),
           logo("shiden.png", "Shibuya Logo"));
-*/
+
   var polkadot = RelayChain("Polkadot", chainSpec("polkadot.json"),
           logo("polkadot.svg", "Polkadot Logo"))
       // Astar
-      // .addParachain("Astar", chainSpec("astar.json"),
-      //     logo("polkadot.svg", "Astar Logo"))
-      // Statemint
-      .addParachain("AssetHubPolkadot", chainSpec("asset-hub-polkadot.json"),
+      .addParachain("Astar", chainSpec("astar.json"),
+          logo("polkadot.svg", "Astar Logo"))
+      // AssetHub
+      .addParachain("AssetHub", chainSpec("asset-hub-polkadot.json"),
           logo("statemint.svg", "Statemint Logo"))
       // BridgeHub
-      .addParachain("BridgeHubPolkadot", chainSpec("bridge-hub-polkadot.json"),
+      .addParachain("BridgeHub", chainSpec("bridge-hub-polkadot.json"),
           logo("bridgehub-polkadot.svg", "BridgeHub Logo"));
   var kusama = RelayChain(
           "Kusama", chainSpec("kusama.json"), logo("kusama.svg", "Kusama Logo"))
       // Shiden
-      // .addParachain("Shiden", chainSpec("shiden.json"),
-      //     logo("kusama.svg", "Shiden Logo"))
-      // Statemine
-      .addParachain("Kusama Asset Hub", chainSpec("asset-hub-kusama.json"),
+      .addParachain("Shiden", chainSpec("shiden.json"),
+          logo("kusama.svg", "Shiden Logo"))
+      // Shiden
+      .addParachain("Karura", chainSpec("kusama-karura.json"),
+          logo("kusama.svg", "Karura Logo"))
+      // AssetHub
+      .addParachain("AssetHub", chainSpec("asset-hub-kusama.json"),
           logo("statemint.svg", "Statemine Logo"))
       // BridgeHub
-      .addParachain("BridgeHubKusama", chainSpec("bridge-hub-kusama.json"),
+      .addParachain("BridgeHub", chainSpec("bridge-hub-kusama.json"),
           logo("bridgehub-kusama.svg", "BridgeHub Logo"));
 
   var westend = RelayChain(
           "Westend", chainSpec("westend.json"), logo("rococo.svg", "Rococo Logo"))
       // Statemine
-      .addParachain("AssetHubWestend", chainSpec("asset-hub-westend.json"),
+      .addParachain("AssetHub", chainSpec("asset-hub-westend.json"),
           logo("statemint.svg", "Rockmine Logo"))
       // BridgeHub
-      .addParachain("BridgeHubWestend", chainSpec("bridge-hub-westend.json"),
+      .addParachain("BridgeHub", chainSpec("bridge-hub-westend.json"),
           logo("bridgehub-kusama.svg", "BridgeHub Logo"));
 
   var rococo = RelayChain(
           "Rococo", chainSpec("rococo.json"), logo("rococo.svg", "Rococo Logo"))
       // Statemine
-      .addParachain("AssetHubRococo", chainSpec("asset-hub-rococo.json"),
-          logo("statemint.svg", "Rockmine Logo"))
+      .addParachain("AssetHub", chainSpec("asset-hub-rococo.json"),
+          logo("statemint.svg", "AssetHub Logo"))
       // BridgeHub
-      .addParachain("BridgeHubRococo", chainSpec("bridge-hub-rococo.json"),
+      .addParachain("BridgeHub", chainSpec("bridge-hub-rococo.json"),
           logo("bridgehub-kusama.svg", "BridgeHub Logo"));
 
   runApp(ChangeNotifierProvider(
-      // create: (context) => Chains([vara, shibuya, polkadot, kusama, rococo]),
-      create: (context) => Chains([polkadot, kusama, westend, rococo]),
+      create: (context) => Chains([vara, shibuya, polkadot, kusama, westend, rococo]),
       child: const MyApp()));
 }
 
