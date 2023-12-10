@@ -279,6 +279,28 @@ mod tests {
     }
 
     #[test]
+    fn syncs_asset_hub_kusama_parachain() {
+        init_light_client().unwrap();
+
+        let relay_chain = String::from("Kusama");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/kusama.json").unwrap();
+        start_chain_sync(relay_chain.clone(), chain_spec, "".into(), None).unwrap();
+
+        let parachain = String::from("Kusama Asset Hub");
+        let chain_spec = fs::read_to_string("../assets/chainspecs/asset-hub-kusama.json").unwrap();
+        start_chain_sync(
+            parachain.clone(),
+            chain_spec,
+            "".into(),
+            Some(relay_chain.clone()),
+        )
+        .unwrap();
+
+        stop_chain_sync(relay_chain).unwrap();
+        stop_chain_sync(parachain).unwrap();
+    }
+
+    #[test]
     fn syncs_statemine_parachain() {
         init_light_client().unwrap();
 
