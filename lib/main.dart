@@ -62,7 +62,7 @@ void main() {
           logo("bridgehub-kusama.svg", "BridgeHub Logo"));
 
   runApp(ChangeNotifierProvider(
-      create: (context) => Chains([vara, shibuya, polkadot, kusama, westend, rococo]),
+      create: (context) => Chains([vara, polkadot, kusama, westend, rococo]),
       child: const MyApp()));
 }
 
