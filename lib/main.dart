@@ -7,7 +7,7 @@ import 'package:trappist_extra/models/chain.dart';
 void main() {
   // Define the available chains
   var vara = SoloChain("Vara Network", chainSpec("vara.json"),
-          logo("vara.svg", "Vara Logo"));
+          logo("vara.png", "Vara Logo"));
 
   // Shibuya is not a solochain.
   // It is Parachain of the tokio Relay chain
