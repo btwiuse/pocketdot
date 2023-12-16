@@ -99,7 +99,7 @@ dependencies {
             -o ../android/app/src/main/jniLibs build $profileMode"""
 
         workingDir "../../smoldot-flutter"
-        environment "ANDROID_NDK_HOME", "System.getenv('ANDROID_NDK_HOME')"
+        environment "ANDROID_NDK_HOME", System.getenv('ANDROID_NDK_HOME')
         if (org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentOperatingSystem.isWindows()) {
             commandLine 'cmd', '/C', ndk_command
         } else {
