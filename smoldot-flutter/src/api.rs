@@ -65,6 +65,8 @@ pub fn start_chain_sync(
 
     let client = client_lock.as_mut().unwrap();
 
+    dbg!("pre add_chain");
+    dbg!(&relay_chain);
     // Ask the client to connect to a chain.
     let smoldot_light::AddChainSuccess {
         chain_id,
@@ -117,13 +119,18 @@ pub fn start_chain_sync(
         .with_context(|| format!("Failed to start syncing chain '{:?}'.", chain_name))?;
 
     // The chain is now properly initialized.
+    dbg!("post add_chain");
+    dbg!(&chain_name);
+    dbg!(chain_id);
 
     // `json_rpc_responses` can only be `None` if we had passed `disable_json_rpc: true` in the
     // configuration.
     let rpc_responses = json_rpc_responses.unwrap();
 
+    dbg!("pre insert chain id");
     let mut chains_guard = CHAINS.write();
     chains_guard.insert(chain_name.clone(), chain_id);
+    dbg!("post insert chain id");
 
     let mut rpc_response_streams_guard = RPC_RESPONSE_STREAMS.write();
     rpc_response_streams_guard.insert(
@@ -136,6 +143,7 @@ pub fn start_chain_sync(
 
 pub fn stop_chain_sync(chain_name: String) -> anyhow::Result<()> {
     let chains_guard = CHAINS.upgradable_read();
+    dbg!("stop_chain_sync");
     if !chains_guard.contains_key(&chain_name) {
         return Err(anyhow!("Unknown chain '{:?}'.", chain_name));
     }
@@ -179,6 +187,7 @@ pub fn send_json_rpc_request(chain_name: String, req: String) -> anyhow::Result<
             })?;
         Ok(())
     } else {
+        dbg!("send_json_rpc_request");
         Err(anyhow!("Unknown chain '{:?}'.", chain_name))
     }
 }
@@ -215,6 +224,7 @@ pub fn listen_json_rpc_responses(
         }
         Ok(())
     } else {
+        dbg!("listen_json_rpc_responses");
         Err(anyhow!("Unknown chain '{:?}'.", chain_name))
     }
 }

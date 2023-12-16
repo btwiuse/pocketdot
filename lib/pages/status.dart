@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:trappist_extra/models/chain.dart';
+import 'package:pocketdot/models/chain.dart';
 import 'package:blinking_text/blinking_text.dart';
 import 'package:intl/intl.dart';
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:trappist_extra/pages/home.dart';
-import 'package:trappist_extra/models/chain.dart';
+import 'package:pocketdot/pages/home.dart';
+import 'package:pocketdot/models/chain.dart';
 
 void main() {
   // Define the available chains
-  var vara = SoloChain("Vara Network", chainSpec("vara.json"),
+  var vara = SoloChain("Vara", chainSpec("vara.json"),
           logo("vara.png", "Vara Logo"));
 
   // Shibuya is not a solochain.
@@ -99,7 +99,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Trappist Extra',
+      title: 'Pocketdot',
       theme: ThemeData(
           // This is the theme of your application.
           //
@@ -113,7 +113,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.pink,
           fontFamily: 'Syncopate',
           dividerColor: Colors.transparent),
-      home: const HomePage(title: 'Trappist Extra'),
+      home: const HomePage(title: 'Pocketdot'),
     );
   }
 }
