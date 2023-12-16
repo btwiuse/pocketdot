@@ -1,4 +1,4 @@
-package com.example.trappist_extra
+package app.pocketdot
 
 import io.flutter.embedding.android.FlutterActivity
 

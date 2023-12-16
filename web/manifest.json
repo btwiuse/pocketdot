@@ -1,6 +1,6 @@
 {
-    "name": "trappist_extra",
-    "short_name": "trappist_extra",
+    "name": "pocketdot",
+    "short_name": "pocketdot",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
