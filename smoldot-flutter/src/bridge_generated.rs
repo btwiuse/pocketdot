@@ -124,7 +124,7 @@ fn wire_solve__method__NposMiner_impl(
     port_: MessagePort,
     that: impl Wire2Api<NposMiner> + UnwindSafe,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, (Vec<u8>, Vec<u8>), _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, Solutions, _>(
         WrapInfo {
             debug_name: "solve__method__NposMiner",
             port: Some(port_),
@@ -190,6 +190,22 @@ impl support::IntoDart for LogEntry {
 }
 impl support::IntoDartExceptPrimitive for LogEntry {}
 impl rust2dart::IntoIntoDart<LogEntry> for LogEntry {
+    fn into_into_dart(self) -> Self {
+        self
+    }
+}
+
+impl support::IntoDart for Solutions {
+    fn into_dart(self) -> support::DartAbi {
+        vec![
+            self.raw_solution.into_into_dart().into_dart(),
+            self.ready_solution.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for Solutions {}
+impl rust2dart::IntoIntoDart<Solutions> for Solutions {
     fn into_into_dart(self) -> Self {
         self
     }

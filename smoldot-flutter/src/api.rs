@@ -240,9 +240,14 @@ pub struct NposMiner {
   // pub tolerance: u128,
 }
 
+pub struct Solutions {
+    pub raw_solution: Vec<u8>,
+    pub ready_solution: Vec<u8>,
+}
+
 impl NposMiner {
-  pub fn solve(&self) -> Result<(Vec<u8>, Vec<u8>), anyhow::Error> {
-    solve(
+  pub fn solve(&self) -> Result<Solutions, anyhow::Error> {
+    let solutions = solve(
       &self.chain,
       &self.method,
       &self.snapshot_bytes,
@@ -250,7 +255,11 @@ impl NposMiner {
       self.desired_targets,
       self.iterations,
       0,
-    )
+    );
+    Solutions{
+        raw_solution: solutions.raw_solution,
+        ready_solution: solutions.ready_solution,
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 [toolchain]
-channel = "stable"
+channel = "nightly"
 profile = "default"
 targets = [
   "aarch64-linux-android",

@@ -42,7 +42,7 @@ abstract class SmoldotFlutter {
 
   FlutterRustBridgeTaskConstMeta get kListenJsonRpcResponsesConstMeta;
 
-  Future<(Uint8List, Uint8List)> solveMethodNposMiner(
+  Future<Solutions> solveMethodNposMiner(
       {required NposMiner that, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSolveMethodNposMinerConstMeta;
@@ -81,10 +81,19 @@ class NposMiner {
     required this.iterations,
   });
 
-  Future<(Uint8List, Uint8List)> solve({dynamic hint}) =>
-      bridge.solveMethodNposMiner(
+  Future<Solutions> solve({dynamic hint}) => bridge.solveMethodNposMiner(
         that: this,
       );
+}
+
+class Solutions {
+  final Uint8List rawSolution;
+  final Uint8List readySolution;
+
+  const Solutions({
+    required this.rawSolution,
+    required this.readySolution,
+  });
 }
 
 class SmoldotFlutterImpl implements SmoldotFlutter {
@@ -216,13 +225,13 @@ class SmoldotFlutterImpl implements SmoldotFlutter {
         argNames: ["chainName"],
       );
 
-  Future<(Uint8List, Uint8List)> solveMethodNposMiner(
+  Future<Solutions> solveMethodNposMiner(
       {required NposMiner that, dynamic hint}) {
     var arg0 = _platform.api2wire_box_autoadd_npos_miner(that);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) =>
           _platform.inner.wire_solve__method__NposMiner(port_, arg0),
-      parseSuccessData: _wire2api___record__uint_8_list_uint_8_list,
+      parseSuccessData: _wire2api_solutions,
       parseErrorData: _wire2api_FrbAnyhowException,
       constMeta: kSolveMethodNposMinerConstMeta,
       argValues: [that],
@@ -249,18 +258,6 @@ class SmoldotFlutterImpl implements SmoldotFlutter {
     return raw as String;
   }
 
-  (Uint8List, Uint8List) _wire2api___record__uint_8_list_uint_8_list(
-      dynamic raw) {
-    final arr = raw as List<dynamic>;
-    if (arr.length != 2) {
-      throw Exception('Expected 2 elements, got ${arr.length}');
-    }
-    return (
-      _wire2api_uint_8_list(arr[0]),
-      _wire2api_uint_8_list(arr[1]),
-    );
-  }
-
   int _wire2api_i32(dynamic raw) {
     return raw as int;
   }
@@ -278,6 +275,16 @@ class SmoldotFlutterImpl implements SmoldotFlutter {
       level: _wire2api_i32(arr[1]),
       tag: _wire2api_String(arr[2]),
       msg: _wire2api_String(arr[3]),
+    );
+  }
+
+  Solutions _wire2api_solutions(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return Solutions(
+      rawSolution: _wire2api_uint_8_list(arr[0]),
+      readySolution: _wire2api_uint_8_list(arr[1]),
     );
   }
 
