@@ -41,6 +41,11 @@ abstract class SmoldotFlutter {
       {required String chainName, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kListenJsonRpcResponsesConstMeta;
+
+  Future<(Uint8List, Uint8List)> solveMethodNposMiner(
+      {required NposMiner that, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSolveMethodNposMinerConstMeta;
 }
 
 class LogEntry {
@@ -55,6 +60,31 @@ class LogEntry {
     required this.tag,
     required this.msg,
   });
+}
+
+class NposMiner {
+  final SmoldotFlutter bridge;
+  final String chain;
+  final String method;
+  final Uint8List snapshotBytes;
+  final int round;
+  final int desiredTargets;
+  final int iterations;
+
+  const NposMiner({
+    required this.bridge,
+    required this.chain,
+    required this.method,
+    required this.snapshotBytes,
+    required this.round,
+    required this.desiredTargets,
+    required this.iterations,
+  });
+
+  Future<(Uint8List, Uint8List)> solve({dynamic hint}) =>
+      bridge.solveMethodNposMiner(
+        that: this,
+      );
 }
 
 class SmoldotFlutterImpl implements SmoldotFlutter {
@@ -186,6 +216,26 @@ class SmoldotFlutterImpl implements SmoldotFlutter {
         argNames: ["chainName"],
       );
 
+  Future<(Uint8List, Uint8List)> solveMethodNposMiner(
+      {required NposMiner that, dynamic hint}) {
+    var arg0 = _platform.api2wire_box_autoadd_npos_miner(that);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) =>
+          _platform.inner.wire_solve__method__NposMiner(port_, arg0),
+      parseSuccessData: _wire2api___record__uint_8_list_uint_8_list,
+      parseErrorData: _wire2api_FrbAnyhowException,
+      constMeta: kSolveMethodNposMinerConstMeta,
+      argValues: [that],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kSolveMethodNposMinerConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "solve__method__NposMiner",
+        argNames: ["that"],
+      );
+
   void dispose() {
     _platform.dispose();
   }
@@ -197,6 +247,18 @@ class SmoldotFlutterImpl implements SmoldotFlutter {
 
   String _wire2api_String(dynamic raw) {
     return raw as String;
+  }
+
+  (Uint8List, Uint8List) _wire2api___record__uint_8_list_uint_8_list(
+      dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) {
+      throw Exception('Expected 2 elements, got ${arr.length}');
+    }
+    return (
+      _wire2api_uint_8_list(arr[0]),
+      _wire2api_uint_8_list(arr[1]),
+    );
   }
 
   int _wire2api_i32(dynamic raw) {
@@ -235,10 +297,19 @@ class SmoldotFlutterImpl implements SmoldotFlutter {
 // Section: api2wire
 
 @protected
+int api2wire_u32(int raw) {
+  return raw;
+}
+
+@protected
 int api2wire_u8(int raw) {
   return raw;
 }
 
+@protected
+int api2wire_usize(int raw) {
+  return raw;
+}
 // Section: finalizer
 
 class SmoldotFlutterPlatform extends FlutterRustBridgeBase<SmoldotFlutterWire> {
@@ -253,6 +324,13 @@ class SmoldotFlutterPlatform extends FlutterRustBridgeBase<SmoldotFlutterWire> {
   }
 
   @protected
+  ffi.Pointer<wire_NposMiner> api2wire_box_autoadd_npos_miner(NposMiner raw) {
+    final ptr = inner.new_box_autoadd_npos_miner_0();
+    _api_fill_to_wire_npos_miner(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<wire_uint_8_list> api2wire_opt_String(String? raw) {
     return raw == null ? ffi.nullptr : api2wire_String(raw);
   }
@@ -263,9 +341,24 @@ class SmoldotFlutterPlatform extends FlutterRustBridgeBase<SmoldotFlutterWire> {
     ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
     return ans;
   }
+
 // Section: finalizer
 
 // Section: api_fill_to_wire
+
+  void _api_fill_to_wire_box_autoadd_npos_miner(
+      NposMiner apiObj, ffi.Pointer<wire_NposMiner> wireObj) {
+    _api_fill_to_wire_npos_miner(apiObj, wireObj.ref);
+  }
+
+  void _api_fill_to_wire_npos_miner(NposMiner apiObj, wire_NposMiner wireObj) {
+    wireObj.chain = api2wire_String(apiObj.chain);
+    wireObj.method = api2wire_String(apiObj.method);
+    wireObj.snapshot_bytes = api2wire_uint_8_list(apiObj.snapshotBytes);
+    wireObj.round = api2wire_u32(apiObj.round);
+    wireObj.desired_targets = api2wire_u32(apiObj.desiredTargets);
+    wireObj.iterations = api2wire_usize(apiObj.iterations);
+  }
 }
 
 // ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_positional_boolean_parameters, annotate_overrides, constant_identifier_names
@@ -480,6 +573,33 @@ class SmoldotFlutterWire implements FlutterRustBridgeWireBase {
       _wire_listen_json_rpc_responsesPtr
           .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
+  void wire_solve__method__NposMiner(
+    int port_,
+    ffi.Pointer<wire_NposMiner> that,
+  ) {
+    return _wire_solve__method__NposMiner(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire_solve__method__NposMinerPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_NposMiner>)>>('wire_solve__method__NposMiner');
+  late final _wire_solve__method__NposMiner = _wire_solve__method__NposMinerPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_NposMiner>)>();
+
+  ffi.Pointer<wire_NposMiner> new_box_autoadd_npos_miner_0() {
+    return _new_box_autoadd_npos_miner_0();
+  }
+
+  late final _new_box_autoadd_npos_miner_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_NposMiner> Function()>>(
+          'new_box_autoadd_npos_miner_0');
+  late final _new_box_autoadd_npos_miner_0 = _new_box_autoadd_npos_miner_0Ptr
+      .asFunction<ffi.Pointer<wire_NposMiner> Function()>();
+
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,
   ) {
@@ -517,6 +637,23 @@ final class wire_uint_8_list extends ffi.Struct {
 
   @ffi.Int32()
   external int len;
+}
+
+final class wire_NposMiner extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> chain;
+
+  external ffi.Pointer<wire_uint_8_list> method;
+
+  external ffi.Pointer<wire_uint_8_list> snapshot_bytes;
+
+  @ffi.Uint32()
+  external int round;
+
+  @ffi.Uint32()
+  external int desired_targets;
+
+  @ffi.UintPtr()
+  external int iterations;
 }
 
 typedef DartPostCObjectFnType = ffi.Pointer<

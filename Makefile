@@ -9,4 +9,4 @@ codegen:
 
 init:
 	cargo install cargo-expand
-	cargo install flutter_rust_bridge_codegen
+	cargo install flutter_rust_bridge_codegen  --version 1.82.5

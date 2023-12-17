@@ -120,6 +120,22 @@ fn wire_listen_json_rpc_responses_impl(
         },
     )
 }
+fn wire_solve__method__NposMiner_impl(
+    port_: MessagePort,
+    that: impl Wire2Api<NposMiner> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, (Vec<u8>, Vec<u8>), _>(
+        WrapInfo {
+            debug_name: "solve__method__NposMiner",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.wire2api();
+            move |task_callback| NposMiner::solve(&api_that)
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks
@@ -143,12 +159,22 @@ where
     }
 }
 
+impl Wire2Api<u32> for u32 {
+    fn wire2api(self) -> u32 {
+        self
+    }
+}
 impl Wire2Api<u8> for u8 {
     fn wire2api(self) -> u8 {
         self
     }
 }
 
+impl Wire2Api<usize> for usize {
+    fn wire2api(self) -> usize {
+        self
+    }
+}
 // Section: impl IntoDart
 
 impl support::IntoDart for LogEntry {

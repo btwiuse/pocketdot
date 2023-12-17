@@ -41,7 +41,17 @@ pub extern "C" fn wire_listen_json_rpc_responses(port_: i64, chain_name: *mut wi
     wire_listen_json_rpc_responses_impl(port_, chain_name)
 }
 
+#[no_mangle]
+pub extern "C" fn wire_solve__method__NposMiner(port_: i64, that: *mut wire_NposMiner) {
+    wire_solve__method__NposMiner_impl(port_, that)
+}
+
 // Section: allocate functions
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_npos_miner_0() -> *mut wire_NposMiner {
+    support::new_leak_box_ptr(wire_NposMiner::new_with_null_ptr())
+}
 
 #[no_mangle]
 pub extern "C" fn new_uint_8_list_0(len: i32) -> *mut wire_uint_8_list {
@@ -62,6 +72,24 @@ impl Wire2Api<String> for *mut wire_uint_8_list {
         String::from_utf8_lossy(&vec).into_owned()
     }
 }
+impl Wire2Api<NposMiner> for *mut wire_NposMiner {
+    fn wire2api(self) -> NposMiner {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<NposMiner>::wire2api(*wrap).into()
+    }
+}
+impl Wire2Api<NposMiner> for wire_NposMiner {
+    fn wire2api(self) -> NposMiner {
+        NposMiner {
+            chain: self.chain.wire2api(),
+            method: self.method.wire2api(),
+            snapshot_bytes: self.snapshot_bytes.wire2api(),
+            round: self.round.wire2api(),
+            desired_targets: self.desired_targets.wire2api(),
+            iterations: self.iterations.wire2api(),
+        }
+    }
+}
 
 impl Wire2Api<Vec<u8>> for *mut wire_uint_8_list {
     fn wire2api(self) -> Vec<u8> {
@@ -71,7 +99,19 @@ impl Wire2Api<Vec<u8>> for *mut wire_uint_8_list {
         }
     }
 }
+
 // Section: wire structs
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_NposMiner {
+    chain: *mut wire_uint_8_list,
+    method: *mut wire_uint_8_list,
+    snapshot_bytes: *mut wire_uint_8_list,
+    round: u32,
+    desired_targets: u32,
+    iterations: usize,
+}
 
 #[repr(C)]
 #[derive(Clone)]
@@ -89,6 +129,25 @@ pub trait NewWithNullPtr {
 impl<T> NewWithNullPtr for *mut T {
     fn new_with_null_ptr() -> Self {
         std::ptr::null_mut()
+    }
+}
+
+impl NewWithNullPtr for wire_NposMiner {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            chain: core::ptr::null_mut(),
+            method: core::ptr::null_mut(),
+            snapshot_bytes: core::ptr::null_mut(),
+            round: Default::default(),
+            desired_targets: Default::default(),
+            iterations: Default::default(),
+        }
+    }
+}
+
+impl Default for wire_NposMiner {
+    fn default() -> Self {
+        Self::new_with_null_ptr()
     }
 }
 
