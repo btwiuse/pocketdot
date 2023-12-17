@@ -229,6 +229,31 @@ pub fn listen_json_rpc_responses(
     }
 }
 
+use npos_miner::solve;
+pub struct NposMiner {
+  pub chain: String,
+  pub method: String,
+  pub snapshot_bytes: Vec<u8>,
+  pub round: u32,
+  pub desired_targets: u32,
+  pub iterations: usize,
+  // pub tolerance: u128,
+}
+
+impl NposMiner {
+  pub fn solve(&self) -> Result<(Vec<u8>, Vec<u8>), anyhow::Error> {
+    solve(
+      &self.chain,
+      &self.method,
+      &self.snapshot_bytes,
+      self.round,
+      self.desired_targets,
+      self.iterations,
+      0,
+    )
+  }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
